@@ -1,4 +1,4 @@
-name: provision Service Catalog
+name: Provision Service Catalog Infra
 run-name: infra prov
 on:
  workflow_dispatch:
