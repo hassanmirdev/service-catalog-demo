@@ -12,6 +12,9 @@ on:
         - dev
         - staging
         - prod
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   destroy-infra:
