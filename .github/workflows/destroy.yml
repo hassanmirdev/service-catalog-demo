@@ -1,0 +1,47 @@
+name: Destroy Service Catalog Infra
+
+on:
+  workflow_dispatch:
+   inputs:
+    environment:
+        description: " Select Environment to Destroy (e.g., dev, staging, prod)"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+        - dev
+        - staging
+        - prod
+
+jobs:
+  destroy-infra:
+    name: Destroy Service Catalog Resources
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.5
+      
+      # Step: Set up AWS credentials via OIDC
+      - name: Set up AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::180294181827:role/github-actions-OIDC
+          role-session-name: github-actions-session
+          aws-region: us-east-1
+          audience: sts.amazonaws.com
+
+      - name: Terraform Init
+        run: | 
+          cd ./infra/environments/${{ github.event.inputs.environment || 'dev' }}
+          terraform init
+
+      - name: Destroy Resources
+        run: |
+          cd ./infra/environments/${{ github.event.inputs.environment || 'dev' }}
+          terraform destroy -auto-approve
