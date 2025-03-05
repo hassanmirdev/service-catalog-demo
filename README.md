@@ -1,1 +1,1 @@
-# SC_DEMO
+# service catalog demo
