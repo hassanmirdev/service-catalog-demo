@@ -1,7 +1,6 @@
 module "iam_group" {
   source   = "../../modules/iam_group"
   group_name = "DevOps"
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 module "iam" {
