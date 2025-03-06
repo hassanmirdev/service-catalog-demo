@@ -6,7 +6,7 @@ products = {
     support_email    = "ITSupport@example.com"
     support_url      = "https://wiki.example.com/IT/support"
     artifact_version = "v1.0"
-    template_url     = "https://servicecatalogterraform.s3.us-east-1.amazonaws.com/service_catalog_vpc_product.tar.gz"
+    template_url     = "https://servicecatalogterraform.s3.us-east-1.amazonaws.com/service_catalog_ec2_product.tar.gz"
   }
   "VPC" = {
     name             = "VPC"
