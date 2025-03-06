@@ -28,7 +28,7 @@ module "service_catalog_vpc" {
 
 module "service_catalog_ec2" {
   source                = "../../modules/service_catalog"
-  depends_on            = [module.iam_group, module.iam, module.servive_catalog_vpc]
+  depends_on            = [module.iam_group, module.iam]
   portfolio_name        = "EC2 Portfolio"
   portfolio_description = "Portfolio for Terraform configurations"
   provider_name         = "IT (it@example.com)"
