@@ -6,7 +6,7 @@ products = {
     support_email    = "ITSupport@example.com"
     support_url      = "https://wiki.example.com/IT/support"
     artifact_version = "v1.0"
-    template_url     = "https://terraform-backend-statefi.s3.us-west-1.amazonaws.com/service-catalog_ec2.tar.gz"
+    template_url     = "https://servicecatalogterraform.s3.us-east-1.amazonaws.com/service-catalog_ec2.tar.gz"
   }
   "VPC" = {
     name             = "VPC"
@@ -15,6 +15,6 @@ products = {
     support_email    = "ITSupport@example.com"
     support_url      = "https://wiki.example.com/IT/support"
     artifact_version = "v1.0"
-    template_url     = "https://terraform-backend-statefi.s3.us-west-1.amazonaws.com/vpc_module.tar.gz"
+    template_url     = "https://servicecatalogterraform.s3.us-east-1.amazonaws.com/vpc_module.tar.gz"
   }
 }
