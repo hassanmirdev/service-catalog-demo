@@ -1,5 +1,5 @@
 module "iam_group" {
-  source   = "./modules/iam_group"
+  source   = "../../modules/iam_group"
   group_name = "DevOps"
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
@@ -11,7 +11,7 @@ module "iam" {
 }
 
 module "service_catalog" {
-  source                = "./modules/service_catalog"
+  source                = "../../modules/service_catalog"
   portfolio_name        = "MyServiceCatalogPortfolio"
   portfolio_description = "A portfolio containing EC2 and VPC products."
   provider_name         = "Your Provider Name"
@@ -25,8 +25,8 @@ module "service_catalog" {
       support_email       = "support@example.com"
       support_url         = "https://example.com/support"
       artifact_version    = "v1.0"
-      template_url        = "https://s3.amazonaws.com/your-bucket/service-catalog-ec2.tar.gz"
-      launch_role_arn     = "arn:aws:iam::123456789012:role/service-catalog-ec2-launch-role"
+      template_url        = "https://s3.amazonaws.com/your-bucket/service-catalog_ec2.tar.gz"
+      launch_role_arn     = "arn:aws:iam::180294181827:role/service-catalog-ec2-launch-role"
     },
     vpc_product = {
       product_name        = "VPC_Product"
@@ -35,8 +35,8 @@ module "service_catalog" {
       support_email       = "network-support@example.com"
       support_url         = "https://example.com/network-support"
       artifact_version    = "v1.0"
-      template_url        = "https://s3.amazonaws.com/your-bucket/service-catalog-vpc.tar.gz"
-      launch_role_arn     = "arn:aws:iam::123456789012:role/service-catalog-vpc-launch-role"
+      template_url        = "https://s3.amazonaws.com/your-bucket/vpc_module.tar.gz"
+      launch_role_arn     = "arn:aws:iam::180294181827:role/service-catalog-vpc-launch-role"
     }
   }
 }
