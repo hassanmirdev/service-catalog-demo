@@ -12,31 +12,12 @@ module "iam" {
 
 module "service_catalog" {
   source                = "../../modules/service_catalog"
-  portfolio_name        = "MyServiceCatalogPortfolio"
+  depends_on = [module.iam_group, module.iam]
+  portfolio_name        = "EC2 and VPC Portfolio"
   portfolio_description = "A portfolio containing EC2 and VPC products."
-  provider_name         = "Your Provider Name"
+  provider_name         = "IT (it@example.com)"
   iam_group_arn         = module.iam_group.iam_group_arn
+  products              = var.products
+  launch_role_arn       = module.iam.iam_role_arn
 
-  products = {
-    ec2_product = {
-      product_name        = "EC2_Instance"
-      product_owner       = "DevOps"
-      product_description = "Terraform product containing an EC2 instance."
-      support_email       = "support@example.com"
-      support_url         = "https://example.com/support"
-      artifact_version    = "v1.0"
-      template_url        = "https://s3.amazonaws.com/your-bucket/service-catalog_ec2.tar.gz"
-      launch_role_arn     = "arn:aws:iam::180294181827:role/service-catalog-ec2-launch-role"
-    },
-    vpc_product = {
-      product_name        = "VPC_Product"
-      product_owner       = "NetworkTeam"
-      product_description = "Terraform product containing a VPC."
-      support_email       = "network-support@example.com"
-      support_url         = "https://example.com/network-support"
-      artifact_version    = "v1.0"
-      template_url        = "https://s3.amazonaws.com/your-bucket/vpc_module.tar.gz"
-      launch_role_arn     = "arn:aws:iam::180294181827:role/service-catalog-vpc-launch-role"
-    }
-  }
 }
