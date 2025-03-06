@@ -15,6 +15,6 @@ products = {
     support_email    = "ITSupport@example.com"
     support_url      = "https://wiki.example.com/IT/support"
     artifact_version = "v1.0"
-    template_url     = "https://terraform-backend-statefi.s3.us-west-1.amazonaws.com/vpc-module.tar.gz"
+    template_url     = "https://terraform-backend-statefi.s3.us-west-1.amazonaws.com/vpc_module.tar.gz"
   }
 }
