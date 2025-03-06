@@ -1,5 +1,7 @@
 module "iam_group" {
-  source = "../../modules/iam_group"
+  source   = "./modules/iam_group"
+  group_name = "DevOps"
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 module "iam" {
@@ -8,39 +10,33 @@ module "iam" {
   role_name    = "SCLaunch-EC2product"
 }
 
-# Adding a VPC product configuration
-module "service_catalog_vpc" {
-  source                = "../../modules/service_catalog"
-  depends_on            = [module.iam_group, module.iam]
-  portfolio_name        = "VPC Portfolio"
-  portfolio_description = "Portfolio for VPC configurations"
-  provider_name         = "Network Team (network@example.com)"
-  vpc_product_name          = "VPC_Product"
-  vpc_product_owner         = "NetworkAdmin"
-  product_description   = "Terraform product to provision a Virtual Private Cloud (VPC)."
-  vpc_support_url           = "https://wiki.example.com/network/support"
-  vpc_support_email         = "networksupport@example.com"
-  vpc_artifact_version      = "1.0"
-  vpc_template_url          = "https://servicecatalogterraform.s3.us-east-1.amazonaws.com/vpc-module.tar.gz"
-  launch_role_arn       = module.iam.iam_role_arn
+module "service_catalog" {
+  source                = "./modules/service_catalog"
+  portfolio_name        = "MyServiceCatalogPortfolio"
+  portfolio_description = "A portfolio containing EC2 and VPC products."
+  provider_name         = "Your Provider Name"
   iam_group_arn         = module.iam_group.iam_group_arn
+
+  products = {
+    ec2_product = {
+      product_name        = "EC2_Instance"
+      product_owner       = "DevOps"
+      product_description = "Terraform product containing an EC2 instance."
+      support_email       = "support@example.com"
+      support_url         = "https://example.com/support"
+      artifact_version    = "v1.0"
+      template_url        = "https://s3.amazonaws.com/your-bucket/service-catalog-ec2.tar.gz"
+      launch_role_arn     = "arn:aws:iam::123456789012:role/service-catalog-ec2-launch-role"
+    },
+    vpc_product = {
+      product_name        = "VPC_Product"
+      product_owner       = "NetworkTeam"
+      product_description = "Terraform product containing a VPC."
+      support_email       = "network-support@example.com"
+      support_url         = "https://example.com/network-support"
+      artifact_version    = "v1.0"
+      template_url        = "https://s3.amazonaws.com/your-bucket/service-catalog-vpc.tar.gz"
+      launch_role_arn     = "arn:aws:iam::123456789012:role/service-catalog-vpc-launch-role"
+    }
+  }
 }
-
-module "service_catalog_ec2" {
-  source                = "../../modules/service_catalog"
-  depends_on            = [module.iam_group, module.iam]
-  portfolio_name        = "EC2 Portfolio"
-  portfolio_description = "Portfolio for Terraform configurations"
-  provider_name         = "IT (it@example.com)"
-  product_name          = "EC2_instanace"
-  product_owner         = "Devops"
-  product_description   = "Terraform product containing an Amazon EC2."
-  support_url           = "https://wiki.example.com/IT/support"
-  support_email         = "ITSupport@example.com"
-  artifact_version      = "v1.0"
-  template_url          = "https://servicecatalogterraform.s3.us-east-1.amazonaws.com/service-catalog_ec2.tar.gz"
-  launch_role_arn       = module.iam.iam_role_arn
-  iam_group_arn         = module.iam_group.iam_group_arn
-}
-
-
