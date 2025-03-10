@@ -4,6 +4,29 @@ resource "aws_servicecatalog_portfolio" "portfolio" {
   provider_name = var.provider_name
 }
 
+# Create the first tag option for "ec2"
+resource "aws_servicecatalog_tag_option" "ec2_tag" {
+  key   = "service"
+  value = "ec2"
+}
+
+# Create the second tag option for "vpc"
+resource "aws_servicecatalog_tag_option" "vpc_tag" {
+  key   = "service"
+  value = "vpc"
+}
+
+# Associate the Tag Options with the Portfolio
+resource "aws_servicecatalog_tag_option_resource_association" "ec2_tag_association" {
+  resource_id   = aws_servicecatalog_portfolio.portfolio.id
+  tag_option_id = aws_servicecatalog_tag_option.ec2_tag.id
+}
+
+resource "aws_servicecatalog_tag_option_resource_association" "vpc_tag_association" {
+  resource_id   = aws_servicecatalog_portfolio.portfolio.id
+  tag_option_id = aws_servicecatalog_tag_option.vpc_tag.id
+}
+
 resource "aws_servicecatalog_product" "product" {
   for_each = var.products
 
