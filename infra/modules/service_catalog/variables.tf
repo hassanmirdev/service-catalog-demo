@@ -35,3 +35,12 @@ variable "products" {
     template_url     = string
   }))
 }
+
+# Define a map of tag options for different services (e.g., "ec2" and "vpc")
+variable "tag_options" {
+  type = map(string)
+  default = {
+    "ec2" = "service"
+    "vpc" = "service"
+  }
+}
