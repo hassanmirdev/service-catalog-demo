@@ -55,12 +55,14 @@ resource "aws_servicecatalog_tag_option_resource_association" "tag_option_associ
 resource "aws_servicecatalog_service_action" "example" {
   description = "Restart EC2 Instance"
   name        = "RestartEC2Instance"
+  version     = 1
 
   definition {
     name = "AWS-RestartEC2Instance"
   }
 }
 
+/*
 # Associate the Service Action with Products
 resource "aws_servicecatalog_service_action_association" "action_association" {
   for_each = aws_servicecatalog_product.product
@@ -68,6 +70,7 @@ resource "aws_servicecatalog_service_action_association" "action_association" {
   service_action_id = aws_servicecatalog_service_action.example.id
   product_id        = each.value.id
 }
+*/
 
 
 resource "aws_servicecatalog_product" "product" {
