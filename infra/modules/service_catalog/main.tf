@@ -55,10 +55,11 @@ resource "aws_servicecatalog_tag_option_resource_association" "tag_option_associ
 resource "aws_servicecatalog_service_action" "example" {
   description = "Restart EC2 Instance"
   name        = "RestartEC2Instance"
-  version     = 1
+  
 
   definition {
     name = "AWS-RestartEC2Instance"
+    version     = 1
   }
 }
 
