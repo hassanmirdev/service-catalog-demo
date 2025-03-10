@@ -42,5 +42,7 @@ variable "tag_options" {
   default = {
     "ec2" = "service"
     "vpc" = "service"
+    "compute" = "dept"
+    "network" = "dept"
   }
 }
